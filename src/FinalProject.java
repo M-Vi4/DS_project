@@ -5,7 +5,8 @@ public class FinalProject {
         Scanner scanner = new Scanner(System.in);
         KD_Tree kd_tree = new KD_Tree(2);
         String command = scanner.nextLine();
-        Neighborhood[] neighborhoods = new Neighborhood[100];
+        Trie banks = new Trie();
+        Trie neighborhoods = new Trie();
         int nCtr = 0;
         while (!command.equals("end")) {
             switch (command) {
@@ -28,7 +29,8 @@ public class FinalProject {
                     double[] fourth = new double[2];
                     fourth[0] = scanner.nextDouble();
                     fourth[1] = scanner.nextDouble();
-                    neighborhoods[nCtr] = new Neighborhood(first, second, third, fourth, name);
+                    Neighborhood neighborhood = new Neighborhood(first, second, third, fourth, name);
+                    neighborhoods.insertNeighborhood(name , neighborhood);
                     System.out.println("neighborhood successfully added!");
                     break;
                 }
@@ -40,6 +42,7 @@ public class FinalProject {
                     coordinates[0] = scanner.nextDouble();
                     coordinates[1] = scanner.nextDouble();
                     Bank bank = new Bank(coordinates, name);
+                    banks.insertBank(name , bank);
                     Node node = new Node(true);
                     node.setBank(bank);
                     kd_tree.insert(kd_tree.getRoot(), node, 0);
@@ -48,6 +51,7 @@ public class FinalProject {
                 case "addBr" : {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
+                    Bank bank = banks.search(bankName).getBank();
                     System.out.println("enter branch name: ");
                     String branchName = scanner.nextLine();
                     System.out.println("enter branch coordinates: ");
@@ -55,6 +59,7 @@ public class FinalProject {
                     coordinates[0] = scanner.nextDouble();
                     coordinates[1] = scanner.nextDouble();
                     BankBranch bankBranch = new BankBranch(coordinates, branchName, bankName);
+                    bank.addBranch(bankBranch);
                     Node node = new Node(false);
                     node.setBankBranch(bankBranch);
                     kd_tree.insert(kd_tree.getRoot(), node, 0);
@@ -77,7 +82,12 @@ public class FinalProject {
 
                 }
                 case "listBrs" : {
-
+                    System.out.println("enter bank name: ");
+                    String bankName = scanner.nextLine();
+                    Bank bank = banks.search(bankName).getBank();
+                    for (int i = 0; i < bank.getBranches().length; i++) {
+                        bank.getBranches()[i].printInfo();
+                    }
                 }
                 case "nearB" : {
 

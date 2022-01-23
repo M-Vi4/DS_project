@@ -18,7 +18,7 @@ public class KD_Tree{
         if (this.root == null)
             return node;
         if (nodeComparison(root , node)){
-            System.out.println("can not place a bank here!!");
+            System.out.println("already there is a bank here!!");
             return root;
         }
         int r = d % k;
