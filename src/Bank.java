@@ -20,8 +20,7 @@ public class Bank {
     public BankBranch[] getBranches() {
         return branches;
     }
-
-    public void setBranches(BankBranch[] branches) {
+    public void setBranches(BankBranch[] branches){
         this.branches = branches;
     }
 }

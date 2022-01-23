@@ -37,7 +37,7 @@ public class Node{
         return bankBranch;
     }
 
-    public void setBankBranch(BankBranch bankBranch) {
+    public void setBankBranch(BankBranch bankBranch){
         this.bankBranch = bankBranch;
     }
 
@@ -62,7 +62,7 @@ public class Node{
         else {
             System.out.println("'" + bankBranch.getBrName() + "' branch of'" +
                                 bankBranch.getBaName() + "'bank placed in X = "
-                                + bankBranch.getCoordinates()[0] + "and Y = " +
+                                + bankBranch.getCoordinates()[0] + " and Y = " +
                                 + bankBranch.getCoordinates()[1]);
         }
     }
