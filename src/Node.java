@@ -53,4 +53,17 @@ public class Node{
             return bank.getCoordinates();
         return bankBranch.getCoordinates();
     }
+
+    public void printInfo(){
+        if (isBank){
+            System.out.println("bank " + "'" + bank.getName() + "'" + " placed in X = " + getCoordinates()[0]
+                                + " and Y = " + getCoordinates()[1]);
+        }
+        else {
+            System.out.println("'" + bankBranch.getBrName() + "' branch of'" +
+                                bankBranch.getBaName() + "'bank placed in X = "
+                                + bankBranch.getCoordinates()[0] + "and Y = " +
+                                + bankBranch.getCoordinates()[1]);
+        }
+    }
 }
