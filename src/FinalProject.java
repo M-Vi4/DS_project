@@ -59,6 +59,16 @@ public class FinalProject {
                 node.setBankBranch(bankBranch);
                 kd_tree.insert(kd_tree.getRoot() , node , 0);
             }
+            // find banks in a range
+            else if (command.equals("availB")){
+                System.out.println("enter coordinates: ");
+                double[] coordinates = new double[2];
+                coordinates[0] = scanner.nextDouble();
+                coordinates[1] = scanner.nextDouble();
+                System.out.println("enter range: ");
+                double r = scanner.nextDouble();
+                kd_tree.inRangeBanks(kd_tree.getRoot() , coordinates , r);
+            }
         }
     }
 }
