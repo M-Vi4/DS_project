@@ -17,6 +17,10 @@ public class KD_Tree{
     public Node insert(Node root , Node node , int d){
         if (this.root == null)
             return node;
+        if (node.getCoordinates()[0] == root.getCoordinates()[0] && node.getCoordinates()[1] == root.getCoordinates()[1]){
+            System.out.println("can not place a bank here!!");
+            return root;
+        }
         int r = d % k;
         if (node.getCoordinates()[r] < root.getCoordinates()[r])
             root.setLeft(insert(root.getLeft() , node , d + 1));
@@ -43,4 +47,6 @@ public class KD_Tree{
             return search(root.getLeft() , node , d + 1);
         return search(root.getRight() , node , d + 1);
     }
+
+
 }
