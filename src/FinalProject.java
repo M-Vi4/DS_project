@@ -7,7 +7,6 @@ public class FinalProject {
         String command = scanner.nextLine();
         Trie banks = new Trie();
         Trie neighborhoods = new Trie();
-        int nCtr = 0;
         while (!command.equals("end")) {
             switch (command) {
                 case "addN" : {

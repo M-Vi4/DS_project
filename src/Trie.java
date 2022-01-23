@@ -42,7 +42,9 @@ public class Trie {
                 return null;
             current = current.getChildren()[index];
         }
-        return current;
+        if (current.isWord())
+            return current;
+        return null;
     }
 
     public int getIndex(int c , String word){
