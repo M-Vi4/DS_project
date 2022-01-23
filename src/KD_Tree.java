@@ -15,8 +15,10 @@ public class KD_Tree{
     }
 
     public Node insert(Node root , Node node , int d){
-        if (this.root == null)
+        if (this.root == null) {
+            this.root = node;
             return node;
+        }
         int r = d % k;
         if (node.getCoordinates()[r] < root.getCoordinates()[r])
             root.setLeft(insert(root.getLeft() , node , d + 1));

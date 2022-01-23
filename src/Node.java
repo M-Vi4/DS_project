@@ -1,10 +1,12 @@
 public class Node{
-    private final int[] coordinates;
+    private Bank bank;
+    private BankBranch bankBranch;
     private Node right = null;
     private Node left = null;
+    private boolean isBank;
 
-    public Node(int[] coordinates) {
-        this.coordinates = coordinates;
+    public Node(boolean isBank) {
+        this.isBank = isBank;
     }
 
     public void setRight(Node right) {
@@ -23,7 +25,32 @@ public class Node{
         return left;
     }
 
-    public int[] getCoordinates() {
-        return coordinates;
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+
+    public BankBranch getBankBranch() {
+        return bankBranch;
+    }
+
+    public void setBankBranch(BankBranch bankBranch) {
+        this.bankBranch = bankBranch;
+    }
+
+    public boolean isBank() {
+        return isBank;
+    }
+
+    public void setIsBank(boolean bank) {
+        isBank = bank;
+    }
+    public int[] getCoordinates(){
+        if (isBank)
+            return bank.getCoordinates();
+        return bankBranch.getCoordinates();
     }
 }
