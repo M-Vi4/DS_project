@@ -1,15 +1,15 @@
 public class Bank {
-    private final int[] coordinates;
+    private final double[] coordinates;
     private final String name;
     private BankBranch[] branches;
 
-    public Bank(int[] coordinates, String name) {
+    public Bank(double[] coordinates, String name) {
         this.coordinates = coordinates;
         this.name = name;
         branches = new BankBranch[50];
     }
 
-    public int[] getCoordinates() {
+    public double[] getCoordinates() {
         return coordinates;
     }
 

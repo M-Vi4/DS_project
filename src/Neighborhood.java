@@ -1,11 +1,11 @@
 public class Neighborhood {
-    private final int[] first;
-    private final int[] second;
-    private final int[] third;
-    private final int[] fourth;
+    private final double[] first;
+    private final double[] second;
+    private final double[] third;
+    private final double[] fourth;
     private final String name;
 
-    public Neighborhood(int[] first, int[] second, int[] third, int[] fourth, String name) {
+    public Neighborhood(double[] first, double[] second, double[] third, double[] fourth, String name) {
         this.first = first;
         this.second = second;
         this.third = third;
@@ -13,19 +13,19 @@ public class Neighborhood {
         this.name = name;
     }
 
-    public int[] getFirst() {
+    public double[] getFirst() {
         return first;
     }
 
-    public int[] getSecond() {
+    public double[] getSecond() {
         return second;
     }
 
-    public int[] getThird() {
+    public double[] getThird() {
         return third;
     }
 
-    public int[] getFourth() {
+    public double[] getFourth() {
         return fourth;
     }
 

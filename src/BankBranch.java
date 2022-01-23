@@ -1,19 +1,19 @@
 public class BankBranch{
-    private int[] coordinates;
+    private double[] coordinates;
     private String brName;
     private String baName;
 
-    public BankBranch(int[] coordinates, String brName, String baName) {
+    public BankBranch(double[] coordinates, String brName, String baName) {
         this.coordinates = coordinates;
         this.brName = brName;
         this.baName = baName;
     }
 
-    public int[] getCoordinates() {
+    public double[] getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(int[] coordinates) {
+    public void setCoordinates(double[] coordinates) {
         this.coordinates = coordinates;
     }
 

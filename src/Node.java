@@ -48,7 +48,7 @@ public class Node{
     public void setIsBank(boolean bank) {
         isBank = bank;
     }
-    public int[] getCoordinates(){
+    public double[] getCoordinates(){
         if (isBank)
             return bank.getCoordinates();
         return bankBranch.getCoordinates();
