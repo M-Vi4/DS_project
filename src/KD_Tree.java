@@ -17,7 +17,7 @@ public class KD_Tree{
     public Node insert(Node root , Node node , int d){
         if (this.root == null)
             return node;
-        if (node.getCoordinates()[0] == root.getCoordinates()[0] && node.getCoordinates()[1] == root.getCoordinates()[1]){
+        if (nodeComparison(root , node)){
             System.out.println("can not place a bank here!!");
             return root;
         }
