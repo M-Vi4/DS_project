@@ -48,5 +48,19 @@ public class KD_Tree{
         return search(root.getRight() , node , d + 1);
     }
 
+    private boolean rangeCalc(double[] coordinates1 , double[] coordinates2 , double r){
+        double d = Math.sqrt(Math.pow((coordinates1[0] - coordinates2[0]) , 2) + Math.pow((coordinates1[1] - coordinates2[1]) , 2));
+        return d <= r;
+    }
+
+    public void inRangeBanks(Node root , double[] coordinates , double r){
+        if (root == null)
+            return;
+        if (rangeCalc(root.getCoordinates() , coordinates , r) && root.isBank()){
+            root.printInfo();
+            inRangeBanks(root.getRight() , coordinates , r);
+        }
+        inRangeBanks(root.getLeft() , coordinates , r);
+    }
 
 }
