@@ -1,7 +1,6 @@
 public class KD_Tree{
     private Node root = null;
     private final int k;
-
     public KD_Tree(int k) {
         this.k = k;
     }
@@ -15,6 +14,10 @@ public class KD_Tree{
     }
 
     public Node insert(Node root , Node node , int d){
+        if (this.root == null) {
+            this.root = node;
+            return node;
+        }
         if (root == null) {
             return node;
         }
@@ -24,9 +27,9 @@ public class KD_Tree{
         }
         int r = d % k;
         if (node.getCoordinates()[r] < root.getCoordinates()[r])
-            root.setLeft(insert(root.getLeft() , node , d + 1));
+            root.setLeft(insert(root.getLeft(), node, d + 1));
         else
-            root.setRight(insert(root.getRight() , node , d + 1));
+            root.setRight(insert(root.getRight(), node, d + 1));
         return root;
     }
 
