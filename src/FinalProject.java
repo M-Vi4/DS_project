@@ -4,6 +4,7 @@ public class FinalProject {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         KD_Tree kd_tree = new KD_Tree(2);
+        System.out.println("enter command: ");
         String command = scanner.nextLine();
         Trie banks = new Trie();
         Trie neighborhoods = new Trie();
@@ -31,8 +32,9 @@ public class FinalProject {
                     Neighborhood neighborhood = new Neighborhood(first, second, third, fourth, name);
                     neighborhoods.insertNeighborhood(name , neighborhood);
                     System.out.println("neighborhood successfully added!");
-                    break;
                 }
+                break;
+
                 case "addB" : {
                     System.out.println("enter bank name: ");
                     String name = scanner.nextLine();
@@ -45,8 +47,8 @@ public class FinalProject {
                     Node node = new Node(true);
                     node.setBank(bank);
                     kd_tree.insert(kd_tree.getRoot(), node, 0);
-                    break;
                 }
+                break;
                 case "addBr" : {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
@@ -62,8 +64,9 @@ public class FinalProject {
                     Node node = new Node(false);
                     node.setBankBranch(bankBranch);
                     kd_tree.insert(kd_tree.getRoot(), node, 0);
-                    break;
                 }
+                break;
+
                 case "availB" : {
                     System.out.println("enter coordinates: ");
                     double[] coordinates = new double[2];
@@ -72,29 +75,45 @@ public class FinalProject {
                     System.out.println("enter range: ");
                     double r = scanner.nextDouble();
                     kd_tree.inRangeBanks(kd_tree.getRoot(), coordinates, r);
-                    break;
                 }
+                break;
+
                 case "delBr" : {
 
                 }
+                break;
+
                 case "listB" : {
 
                 }
+                break;
+
                 case "listBrs" : {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
                     Bank bank = banks.search(bankName).getBank();
-                    for (int i = 0; i < bank.getBranches().length; i++) {
+                    for (int i = 0; i < bank.getBranchCtr(); i++) {
                         bank.getBranches()[i].printInfo();
                     }
                 }
+                break;
+
                 case "nearB" : {
 
                 }
-                case "nearBr" : {
+                break;
 
+                case "nearBr" : {
+                }
+                break;
+
+                default:{
+                    System.out.println("wrong command!!Try again.");
                 }
             }
+            command = scanner.nextLine();
+            System.out.println("enter command: ");
+            command = scanner.nextLine();
         }
     }
 }

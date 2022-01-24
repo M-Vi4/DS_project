@@ -15,8 +15,9 @@ public class KD_Tree{
     }
 
     public Node insert(Node root , Node node , int d){
-        if (this.root == null)
+        if (root == null) {
             return node;
+        }
         if (nodeComparison(root , node)){
             System.out.println("already there is a bank here!!");
             return root;

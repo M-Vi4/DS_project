@@ -10,6 +10,10 @@ public class Bank {
         branches = new BankBranch[50];
     }
 
+    public int getBranchCtr() {
+        return branchCtr;
+    }
+
     public double[] getCoordinates() {
         return coordinates;
     }
