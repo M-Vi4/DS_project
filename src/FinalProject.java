@@ -99,7 +99,11 @@ public class FinalProject {
                 break;
 
                 case "nearB" : {
-
+                    System.out.println("enter coordinates: ");
+                    double[] coordinates = new double[2];
+                    coordinates[0] = scanner.nextDouble();
+                    coordinates[1] = scanner.nextDouble();
+                    kd_tree.nearestP(kd_tree.getRoot() , coordinates , 0);
                 }
                 break;
 
@@ -111,8 +115,8 @@ public class FinalProject {
                     System.out.println("wrong command!!Try again.");
                 }
             }
-            command = scanner.nextLine();
             System.out.println("enter command: ");
+            command = scanner.nextLine();
             command = scanner.nextLine();
         }
     }
