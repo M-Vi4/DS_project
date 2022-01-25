@@ -45,15 +45,71 @@ public class KD_Tree {
         return true;
     }
 
-    public boolean search(Node root, Node node, int d) {
+    public boolean cooCompare(double[] coo1 , double[] coo2){
+        return (coo1[0] == coo2[0] && coo1[1] == coo2[1]);
+    }
+
+    private Node minNode(Node x , Node y , Node z , int d){
+        Node res = x;
+        if (y != null && y.getCoordinates()[d] < res.getCoordinates()[d])
+            res = y;
+        if (z != null && z.getCoordinates()[d] < res.getCoordinates()[d])
+            res = z;
+        return res;
+    }
+
+    private Node findMin(Node root , int d , int depth){
         if (root == null)
-            return false;
-        if (nodeComparison(root, node))
-            return true;
+            return null;
+        int r = depth % k;
+        if (r == d){
+            if (root.getLeft() == null)
+                return root;
+            return findMin(root.getLeft() , d , depth + 1);
+        }
+        return minNode(root , findMin(root.getLeft() , d , depth + 1) , findMin(root.getRight() , d , depth + 1) , d);
+    }
+
+    public Node findMin(Node root , int d){
+        return findMin(root , d, 0);
+    }
+
+    public Node deleteNode(Node root , double[] coo , int depth){
+        if (root == null)
+            return null;
+        int r = depth % k;
+        if (cooCompare(root.getCoordinates() , coo)){
+            if (root.getRight() != null){
+                Node min = findMin(root.getRight() , r);
+                root.setCoordinates(min.getCoordinates());
+                root.setRight(deleteNode(root.getRight() , min.getCoordinates() ,depth + 1 ));
+            }
+            else if (root.getLeft() != null){
+                Node min = findMin(root.getLeft() , r);
+                root.setCoordinates(coo);
+                root.setRight(deleteNode(root.getLeft() , min.getCoordinates() , depth + 1));
+            }
+            else {
+                return  null;
+            }
+            return root;
+        }
+        if (coo[r] < root.getCoordinates()[r])
+            root.setLeft(deleteNode(root.getLeft() , coo , depth + 1));
+        else
+            root.setRight(deleteNode(root.getRight() , coo , depth + 1));
+        return root;
+    }
+
+    public Node search(Node root, double[]coo, int d) {
+        if (root == null)
+            return null;
+        if (root.getCoordinates()[0] == coo[0] && root.getCoordinates()[1] == coo[1])
+            return root;
         int r = d % k;
-        if (node.getCoordinates()[r] < root.getCoordinates()[r])
-            return search(root.getLeft(), node, d + 1);
-        return search(root.getRight(), node, d + 1);
+        if (coo[r] < root.getCoordinates()[r])
+            return search(root.getLeft(), coo, d + 1);
+        return search(root.getRight(), coo, d + 1);
     }
 
     private boolean rangeCalc(double[] coordinates1, double[] coordinates2, double r) {

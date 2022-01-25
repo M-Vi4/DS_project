@@ -55,6 +55,13 @@ public class Node{
         return bankBranch.getCoordinates();
     }
 
+    public void setCoordinates(double[] coo) {
+        if (isBank)
+            bank.setCoordinates(coo);
+        else
+            bankBranch.setCoordinates(coo);
+    }
+
     public void printInfo(){
         if (isBank){
             System.out.println("bank " + "'" + bank.getName() + "'" + " placed in X = " + getCoordinates()[0]

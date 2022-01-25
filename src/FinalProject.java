@@ -77,7 +77,22 @@ public class FinalProject {
                     kd_tree.inRangeBanks(kd_tree.getRoot(), coordinates, r);
                 }
                 case "delBr" -> {
+                    System.out.println("enter coordinate: ");
+                    double[] coordinate = new double[2];
+                    coordinate[0] = scanner.nextDouble();
+                    coordinate[1] = scanner.nextDouble();
+                    Node node = kd_tree.search(kd_tree.getRoot() , coordinate , 0);
+                    if (node == null)
+                        System.out.println("There is no bank here!!");
+                    else if (node.isBank())
+                        System.out.println("Can not delete a main bank!!");
 
+                    else {
+                        kd_tree.deleteNode(kd_tree.getRoot(), coordinate , 0);
+                        Bank bank = banks.search(node.getBankBranch().getBaName()).getBank();
+                        bank.getBranches().deleteNode(bank.getBranches().getRoot() , coordinate , 0);
+                        System.out.println("branch deleted successfully!!");
+                    }
                 }
                 case "listB" -> {
 

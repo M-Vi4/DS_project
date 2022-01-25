@@ -6,9 +6,9 @@ public class TrieNode {
     private boolean isBank;
 
     public TrieNode() {
-        this.children = new TrieNode[26];
+        this.children = new TrieNode[27];
         this.isWord = false;
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < 27; i++) {
             children[i] = null;
         }
     }
