@@ -10,7 +10,7 @@ public class FinalProject {
         Trie neighborhoods = new Trie();
         while (!command.equals("end")) {
             switch (command) {
-                case "addN" : {
+                case "addN" -> {
                     System.out.println("enter neighborhood name: ");
                     String name = scanner.nextLine();
                     System.out.println("enter coordinates of neighbor(first point): ");
@@ -30,12 +30,10 @@ public class FinalProject {
                     fourth[0] = scanner.nextDouble();
                     fourth[1] = scanner.nextDouble();
                     Neighborhood neighborhood = new Neighborhood(first, second, third, fourth, name);
-                    neighborhoods.insertNeighborhood(name , neighborhood);
+                    neighborhoods.insertNeighborhood(name, neighborhood);
                     System.out.println("neighborhood successfully added!");
                 }
-                break;
-
-                case "addB" : {
+                case "addB" -> {
                     System.out.println("enter bank name: ");
                     String name = scanner.nextLine();
                     System.out.println("enter coordinates of bank: ");
@@ -43,13 +41,14 @@ public class FinalProject {
                     coordinates[0] = scanner.nextDouble();
                     coordinates[1] = scanner.nextDouble();
                     Bank bank = new Bank(coordinates, name);
-                    banks.insertBank(name , bank);
                     Node node = new Node(true);
                     node.setBank(bank);
-                    kd_tree.insert(kd_tree.getRoot(), node, 0);
+                    kd_tree.isSame = false;
+                    kd_tree.insert(node);
+                    if (!kd_tree.isSame)
+                        banks.insertBank(name, bank);
                 }
-                break;
-                case "addBr" : {
+                case "addBr" -> {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
                     Bank bank = banks.search(bankName).getBank();
@@ -60,14 +59,15 @@ public class FinalProject {
                     coordinates[0] = scanner.nextDouble();
                     coordinates[1] = scanner.nextDouble();
                     BankBranch bankBranch = new BankBranch(coordinates, branchName, bankName);
-                    bank.addBranch(bankBranch);
                     Node node = new Node(false);
                     node.setBankBranch(bankBranch);
-                    kd_tree.insert(kd_tree.getRoot(), node, 0);
-                }
-                break;
+                    kd_tree.isSame = false;
+                    kd_tree.insert(node);
+                    if (!kd_tree.isSame)
+                        bank.addBranch(bankBranch);
 
-                case "availB" : {
+                }
+                case "availB" -> {
                     System.out.println("enter coordinates: ");
                     double[] coordinates = new double[2];
                     coordinates[0] = scanner.nextDouble();
@@ -76,19 +76,13 @@ public class FinalProject {
                     double r = scanner.nextDouble();
                     kd_tree.inRangeBanks(kd_tree.getRoot(), coordinates, r);
                 }
-                break;
-
-                case "delBr" : {
+                case "delBr" -> {
 
                 }
-                break;
-
-                case "listB" : {
+                case "listB" -> {
 
                 }
-                break;
-
-                case "listBrs" : {
+                case "listBrs" -> {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
                     Bank bank = banks.search(bankName).getBank();
@@ -96,24 +90,37 @@ public class FinalProject {
                         bank.getBranches()[i].printInfo();
                     }
                 }
-                break;
-
-                case "nearB" : {
+                case "nearB" -> {
                     System.out.println("enter coordinates: ");
                     double[] coordinates = new double[2];
                     coordinates[0] = scanner.nextDouble();
                     coordinates[1] = scanner.nextDouble();
-                    kd_tree.nearestP(kd_tree.getRoot() , coordinates , 0);
+                    Node node = kd_tree.nearestBank(kd_tree.getRoot(), coordinates, 0);
+                    if (node.isBank()){
+                        System.out.println("nearest bank to your coordinates is '" + node.getBank().getName() +
+                                            "' placed in X = " + node.getBank().getCoordinates()[0] + "and Y = "
+                                            + node.getBank().getCoordinates()[1]);
+                    }
+                    else if (!node.isBank()){
+                        System.out.println("nearest bank to your coordinates is '" + node.getBankBranch().getBrName() +
+                                "' branch of '" + node.getBankBranch().getBaName() + "' bank placed in X = " +
+                                node.getBank().getCoordinates()[0] + " and Y = " + node.getBank().getCoordinates()[1]);
+                    }
                 }
-                break;
-
-                case "nearBr" : {
+                case "nearBr" -> {
+                    System.out.println("enter bank name: ");
+                    String bankName = scanner.nextLine();
+                    Bank bank = banks.search(bankName).getBank();
+                    System.out.println("enter the coordinates: ");
+                    double[] coordinates = new double[2];
+                    coordinates[0] = scanner.nextDouble();
+                    coordinates[1] = scanner.nextDouble();
+                    Node node = bank.getBranch().nearestBank(bank.getBranch().getRoot() , coordinates , 0);
+                    System.out.println("nearest branch of '" + node.getBankBranch().getBaName() + "' bank to your location is '" +
+                                        node.getBankBranch().getBrName() + "' located in X = " + node.getBankBranch().getCoordinates()[0] +
+                                        " and Y = " + node.getBankBranch().getCoordinates()[1]);
                 }
-                break;
-
-                default:{
-                    System.out.println("wrong command!!Try again.");
-                }
+                default -> System.out.println("wrong command!!Try again.");
             }
             System.out.println("enter command: ");
             command = scanner.nextLine();

@@ -1,6 +1,7 @@
 public class KD_Tree {
     private Node root = null;
     private final int k;
+    boolean isSame = false;
 
     public KD_Tree(int k) {
         this.k = k;
@@ -14,16 +15,13 @@ public class KD_Tree {
         return root;
     }
 
-    public Node insert(Node root, Node node, int d) {
-        if (this.root == null) {
-            this.root = node;
-            return node;
-        }
+    private Node insert(Node root, Node node, int d) {
         if (root == null) {
             return node;
         }
-        if (nodeComparison(root, node)) {
-            System.out.println("already there is a bank here!!");
+        if (root.getCoordinates()[0] == node.getCoordinates()[0] && root.getCoordinates()[1] == node.getCoordinates()[1]){
+            System.out.println("There is already a bank here!!");
+            isSame = true;
             return root;
         }
         int r = d % k;
@@ -31,7 +29,12 @@ public class KD_Tree {
             root.setLeft(insert(root.getLeft(), node, d + 1));
         else
             root.setRight(insert(root.getRight(), node, d + 1));
+
         return root;
+    }
+
+    public void insert(Node node){
+        root = insert(root , node , 0);
     }
 
     public boolean nodeComparison(Node node1, Node node2) {
@@ -69,7 +72,7 @@ public class KD_Tree {
     }
 
     private double distance(double[] coo1, double[] coo2) {
-        return (Math.pow((coo1[0] - coo2[0]), 2) + Math.pow((coo1[1] - coo2[2]), 2));
+        return (Math.pow((coo1[0] - coo2[0]), 2) + Math.pow((coo1[1] - coo2[1]), 2));
     }
 
     public Node nearestBank(Node root, double[] coordinate, int d) {
@@ -94,6 +97,7 @@ public class KD_Tree {
             temp = nearestBank(other , coordinate , d + 1);
             best = closest(temp , best , coordinate);
         }
+        return best;
     }
 
     private Node closest(Node n0 , Node n1 , double[] coordinate){

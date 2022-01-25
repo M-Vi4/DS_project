@@ -2,6 +2,7 @@ public class Bank {
     private final double[] coordinates;
     private final String name;
     private BankBranch[] branches;
+    private KD_Tree branch = new KD_Tree(2);
     private int branchCtr = 0;
 
     public Bank(double[] coordinates, String name) {
@@ -25,9 +26,18 @@ public class Bank {
     public BankBranch[] getBranches() {
         return branches;
     }
-    public void addBranch(BankBranch branch){
-        this.branches[branchCtr++] = branch;
+
+    public KD_Tree getBranch() {
+        return branch;
     }
+
+    public void addBranch(BankBranch branch){
+        Node node = new Node(false);
+        branches[branchCtr++] = branch;
+        node.setBankBranch(branch);
+        this.branch.insert(node);
+    }
+
     public void printInfo(){
         System.out.println("bank " + "'" + this.getName() + "'" + " placed in X = " + getCoordinates()[0]
                 + " and Y = " + getCoordinates()[1]);
