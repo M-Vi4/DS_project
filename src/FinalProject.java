@@ -86,9 +86,7 @@ public class FinalProject {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
                     Bank bank = banks.search(bankName).getBank();
-                    for (int i = 0; i < bank.getBranchCtr(); i++) {
-                        bank.getBranches()[i].printInfo();
-                    }
+                    bank.printBranchesInfo(bank.getBranches().getRoot());
                 }
                 case "nearB" -> {
                     System.out.println("enter coordinates: ");
@@ -98,13 +96,13 @@ public class FinalProject {
                     Node node = kd_tree.nearestBank(kd_tree.getRoot(), coordinates, 0);
                     if (node.isBank()){
                         System.out.println("nearest bank to your coordinates is '" + node.getBank().getName() +
-                                            "' placed in X = " + node.getBank().getCoordinates()[0] + "and Y = "
+                                            "' located in X = " + node.getBank().getCoordinates()[0] + "and Y = "
                                             + node.getBank().getCoordinates()[1]);
                     }
                     else if (!node.isBank()){
                         System.out.println("nearest bank to your coordinates is '" + node.getBankBranch().getBrName() +
-                                "' branch of '" + node.getBankBranch().getBaName() + "' bank placed in X = " +
-                                node.getBank().getCoordinates()[0] + " and Y = " + node.getBank().getCoordinates()[1]);
+                                           "' branch of '" + node.getBankBranch().getBaName() + "' bank located in X = " +
+                                           node.getBank().getCoordinates()[0] + " and Y = " + node.getBank().getCoordinates()[1]);
                     }
                 }
                 case "nearBr" -> {
@@ -115,7 +113,7 @@ public class FinalProject {
                     double[] coordinates = new double[2];
                     coordinates[0] = scanner.nextDouble();
                     coordinates[1] = scanner.nextDouble();
-                    Node node = bank.getBranch().nearestBank(bank.getBranch().getRoot() , coordinates , 0);
+                    Node node = bank.getBranches().nearestBank(bank.getBranches().getRoot() , coordinates , 0);
                     System.out.println("nearest branch of '" + node.getBankBranch().getBaName() + "' bank to your location is '" +
                                         node.getBankBranch().getBrName() + "' located in X = " + node.getBankBranch().getCoordinates()[0] +
                                         " and Y = " + node.getBankBranch().getCoordinates()[1]);

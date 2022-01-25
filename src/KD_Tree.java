@@ -19,7 +19,7 @@ public class KD_Tree {
         if (root == null) {
             return node;
         }
-        if (root.getCoordinates()[0] == node.getCoordinates()[0] && root.getCoordinates()[1] == node.getCoordinates()[1]){
+        if (nodeComparison(node , root)){
             System.out.println("There is already a bank here!!");
             isSame = true;
             return root;

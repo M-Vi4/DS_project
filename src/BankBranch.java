@@ -32,11 +32,4 @@ public class BankBranch{
     public void setBaName(String baName) {
         this.baName = baName;
     }
-
-    public void printInfo(){
-        System.out.println("'" + this.getBrName() + "' branch of'" +
-                this.getBaName() + "'bank placed in X = "
-                + this.getCoordinates()[0] + " and Y = " +
-                + this.getCoordinates()[1]);
-    }
 }
