@@ -29,7 +29,6 @@ public class KD_Tree {
             root.setLeft(insert(root.getLeft(), node, d + 1));
         else
             root.setRight(insert(root.getRight(), node, d + 1));
-
         return root;
     }
 
@@ -74,19 +73,19 @@ public class KD_Tree {
         return findMin(root , d, 0);
     }
 
-    public Node deleteNode(Node root , double[] coo , int depth){
+    private Node deleteNode(Node root , double[] coo , int depth){
         if (root == null)
             return null;
         int r = depth % k;
         if (cooCompare(root.getCoordinates() , coo)){
             if (root.getRight() != null){
                 Node min = findMin(root.getRight() , r);
-                root.setCoordinates(min.getCoordinates());
+                root.setBankBranch(min.getBankBranch());
                 root.setRight(deleteNode(root.getRight() , min.getCoordinates() ,depth + 1 ));
             }
             else if (root.getLeft() != null){
                 Node min = findMin(root.getLeft() , r);
-                root.setCoordinates(coo);
+                root.setBankBranch(min.getBankBranch());
                 root.setRight(deleteNode(root.getLeft() , min.getCoordinates() , depth + 1));
             }
             else {
@@ -99,6 +98,10 @@ public class KD_Tree {
         else
             root.setRight(deleteNode(root.getRight() , coo , depth + 1));
         return root;
+    }
+
+    public void deleteNode(double[] coo){
+        deleteNode(root , coo , 0);
     }
 
     public Node search(Node root, double[]coo, int d) {

@@ -39,7 +39,7 @@ public class Trie {
         if (word.charAt(i) >= 97 && word.charAt(i) <= 122)
             index = word.charAt(i) - 'a';
         else if (word.charAt(i) == 32)
-            index = 27;
+            index = 26;
         return index;
     }
 

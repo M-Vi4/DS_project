@@ -9,8 +9,17 @@ public class Bank {
         this.name = name;
     }
 
+    public void delBr(double[] coo){
+        branches.deleteNode(coo);
+        branchCtr--;
+    }
+
     public int getBranchCtr() {
         return branchCtr;
+    }
+
+    public void setBranchCtr(int branchCtr) {
+        this.branchCtr = branchCtr;
     }
 
     public double[] getCoordinates() {

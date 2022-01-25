@@ -87,10 +87,16 @@ public class FinalProject {
                     else if (node.isBank())
                         System.out.println("Can not delete a main bank!!");
 
-                    else {
-                        kd_tree.deleteNode(kd_tree.getRoot(), coordinate , 0);
-                        Bank bank = banks.search(node.getBankBranch().getBaName()).getBank();
-                        bank.getBranches().deleteNode(bank.getBranches().getRoot() , coordinate , 0);
+                    else if (!node.isBank()) {
+                        String bankName = node.getBankBranch().getBaName();
+                        Bank bank = banks.search(bankName).getBank();
+                        if (bank.getBranchCtr() == 1) {
+                            bank.setBranchCtr(0);
+                            bank.getBranches().setRoot(null);
+                        } else {
+                            bank.delBr(coordinate);
+                            kd_tree.deleteNode(coordinate);
+                        }
                         System.out.println("branch deleted successfully!!");
                     }
                 }
@@ -101,7 +107,10 @@ public class FinalProject {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
                     Bank bank = banks.search(bankName).getBank();
-                    bank.printBranchesInfo(bank.getBranches().getRoot());
+                    if (bank.getBranches().getRoot() == null)
+                        System.out.println("This bank has no branches!!");
+                    else
+                        bank.printBranchesInfo(bank.getBranches().getRoot());
                 }
                 case "nearB" -> {
                     System.out.println("enter coordinates: ");
@@ -117,7 +126,7 @@ public class FinalProject {
                     else if (!node.isBank()){
                         System.out.println("nearest bank to your coordinates is '" + node.getBankBranch().getBrName() +
                                            "' branch of '" + node.getBankBranch().getBaName() + "' bank located in X = " +
-                                           node.getBank().getCoordinates()[0] + " and Y = " + node.getBank().getCoordinates()[1]);
+                                           node.getCoordinates()[0] + " and Y = " + node.getCoordinates()[1]);
                     }
                 }
                 case "nearBr" -> {
@@ -133,7 +142,7 @@ public class FinalProject {
                                         node.getBankBranch().getBrName() + "' located in X = " + node.getBankBranch().getCoordinates()[0] +
                                         " and Y = " + node.getBankBranch().getCoordinates()[1]);
                 }
-                default -> System.out.println("wrong command!!Try again.");
+                default -> System.out.println("wrong command!!Try again...");
             }
             System.out.println("enter command: ");
             command = scanner.nextLine();
