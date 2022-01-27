@@ -45,21 +45,25 @@ public class FinalProject {
                 case "addBr" -> {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
-                    Bank bank = banks.search(bankName).getBank();
-                    System.out.println("enter branch name: ");
-                    String branchName = scanner.nextLine();
-                    System.out.println("enter branch coordinates: ");
-                    double[] coordinates = new double[2];
-                    coordinates[0] = scanner.nextDouble();
-                    coordinates[1] = scanner.nextDouble();
-                    BankBranch bankBranch = new BankBranch(coordinates, branchName, bankName);
-                    Node node = new Node(false);
-                    node.setBankBranch(bankBranch);
-                    kd_tree.isSame = false;
-                    kd_tree.insert(node);
-                    if (!kd_tree.isSame) {
-                        bank.addBranch(bankBranch);
-                        System.out.println("Branch added successfully!!");
+                    if (banks.search(bankName) == null)
+                        System.out.println("There is no bank with this name!!");
+                    else {
+                        Bank bank = banks.search(bankName).getBank();
+                        System.out.println("enter branch name: ");
+                        String branchName = scanner.nextLine();
+                        System.out.println("enter branch coordinates: ");
+                        double[] coordinates = new double[2];
+                        coordinates[0] = scanner.nextDouble();
+                        coordinates[1] = scanner.nextDouble();
+                        BankBranch bankBranch = new BankBranch(coordinates, branchName, bankName);
+                        Node node = new Node(false);
+                        node.setBankBranch(bankBranch);
+                        kd_tree.isSame = false;
+                        kd_tree.insert(node);
+                        if (!kd_tree.isSame) {
+                            bank.addBranch(bankBranch);
+                            System.out.println("Branch added successfully!!");
+                        }
                     }
                 }
                 case "availB" -> {
@@ -97,19 +101,20 @@ public class FinalProject {
                 case "listB" -> {
                     System.out.println("enter neighborhood name: ");
                     String nName = scanner.nextLine();
-                    Neighborhood neighborhood = neighborhoods.search(nName).getNeighborhood();
-                    if (neighborhood == null)
+                    if (neighborhoods.search(nName) == null)
                         System.out.println("There is no neighborhood with this name!!");
-                    else
-                        kd_tree.rangeSearch(kd_tree.getRoot(), neighborhood , 0);
+                    else {
+                        Neighborhood neighborhood = neighborhoods.search(nName).getNeighborhood();
+                        kd_tree.rangeSearch(kd_tree.getRoot(), neighborhood, 0);
+                    }
                 }
                 case "listBrs" -> {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
-                    Bank bank = banks.search(bankName).getBank();
-                    if (bank == null)
+                    if (banks.search(bankName) == null)
                         System.out.println("There is no bank with this name!!");
                     else {
+                        Bank bank = banks.search(bankName).getBank();
                         if (bank.getBranches().getRoot() == null)
                             System.out.println("This bank has no branches!!");
                         else
@@ -136,10 +141,10 @@ public class FinalProject {
                 case "nearBr" -> {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
-                    Bank bank = banks.search(bankName).getBank();
-                    if (bank == null)
+                    if (banks.search(bankName) == null)
                         System.out.println("There is no bank with this name!!");
                     else {
+                        Bank bank = banks.search(bankName).getBank();
                         System.out.println("enter the coordinates: ");
                         double[] coordinates = new double[2];
                         coordinates[0] = scanner.nextDouble();
