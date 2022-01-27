@@ -133,8 +133,8 @@ public class KD_Tree {
     public Node nearestBank(Node root, double[] coordinate, int d) {
         if (root == null)
             return null;
-        Node next = null;
-        Node other = null;
+        Node next;
+        Node other;
         int r = d % k;
         if (coordinate[r] < root.getCoordinates()[r]){
             next = root.getLeft();
