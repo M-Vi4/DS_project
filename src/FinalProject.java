@@ -13,25 +13,17 @@ public class FinalProject {
                 case "addN" -> {
                     System.out.println("enter neighborhood name: ");
                     String name = scanner.nextLine();
-                    System.out.println("enter coordinates of neighbor(first point): ");
-                    double[] first = new double[2];
-                    first[0] = scanner.nextDouble();
-                    first[1] = scanner.nextDouble();
-                    System.out.println("enter coordinates of neighbor(second point): ");
-                    double[] second = new double[2];
-                    second[0] = scanner.nextDouble();
-                    second[1] = scanner.nextDouble();
-                    System.out.println("enter coordinates of neighbor(third point): ");
-                    double[] third = new double[2];
-                    third[0] = scanner.nextDouble();
-                    third[1] = scanner.nextDouble();
-                    System.out.println("enter coordinates of neighbor(fourth point): ");
-                    double[] fourth = new double[2];
-                    fourth[0] = scanner.nextDouble();
-                    fourth[1] = scanner.nextDouble();
-                    Neighborhood neighborhood = new Neighborhood(first, second, third, fourth, name);
+                    System.out.println("enter coordinates of neighbor(max X): ");
+                    double max_X = scanner.nextDouble();
+                    System.out.println("enter coordinates of neighbor(min X): ");
+                    double min_X = scanner.nextDouble();
+                    System.out.println("enter coordinates of neighbor(max Y): ");
+                    double max_Y = scanner.nextDouble();
+                    System.out.println("enter coordinates of neighbor(min Y): ");
+                    double min_Y = scanner.nextDouble();
+                    Neighborhood neighborhood = new Neighborhood(min_X, max_X, min_Y, max_Y, name);
                     neighborhoods.insertNeighborhood(name, neighborhood);
-                    System.out.println("neighborhood successfully added!");
+                    System.out.println("neighborhood added successfully!!");
                 }
                 case "addB" -> {
                     System.out.println("enter bank name: ");
@@ -45,8 +37,10 @@ public class FinalProject {
                     node.setBank(bank);
                     kd_tree.isSame = false;
                     kd_tree.insert(node);
-                    if (!kd_tree.isSame)
+                    if (!kd_tree.isSame) {
                         banks.insertBank(name, bank);
+                        System.out.println("Bank added successfully!!");
+                    }
                 }
                 case "addBr" -> {
                     System.out.println("enter bank name: ");
@@ -63,9 +57,10 @@ public class FinalProject {
                     node.setBankBranch(bankBranch);
                     kd_tree.isSame = false;
                     kd_tree.insert(node);
-                    if (!kd_tree.isSame)
+                    if (!kd_tree.isSame) {
                         bank.addBranch(bankBranch);
-
+                        System.out.println("Branch added successfully!!");
+                    }
                 }
                 case "availB" -> {
                     System.out.println("enter coordinates: ");
@@ -101,7 +96,10 @@ public class FinalProject {
                     }
                 }
                 case "listB" -> {
-
+                    System.out.println("enter neighborhood name: ");
+                    String nName = scanner.nextLine();
+                    Neighborhood neighborhood = neighborhoods.search(nName).getNeighborhood();
+                    kd_tree.rangeSearch(kd_tree.getRoot(), neighborhood , 0);
                 }
                 case "listBrs" -> {
                     System.out.println("enter bank name: ");

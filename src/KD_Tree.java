@@ -19,7 +19,7 @@ public class KD_Tree {
         if (root == null) {
             return node;
         }
-        if (nodeComparison(node , root)){
+        if (nodeComparison(node , root)) {
             System.out.println("There is already a bank here!!");
             isSame = true;
             return root;
@@ -115,15 +115,11 @@ public class KD_Tree {
         return search(root.getRight(), coo, d + 1);
     }
 
-    private boolean rangeCalc(double[] coordinates1, double[] coordinates2, double r) {
-        double d = Math.sqrt(Math.pow((coordinates1[0] - coordinates2[0]), 2) + Math.pow((coordinates1[1] - coordinates2[1]), 2));
-        return d <= r;
-    }
-
     public void inRangeBanks(Node root, double[] coordinates, double r) {
         if (root == null)
             return;
-        if (rangeCalc(root.getCoordinates(), coordinates, r) && root.isBank()) {
+        double d = Math.sqrt(Math.pow((root.getCoordinates()[0] - coordinates[0]), 2) + Math.pow((root.getCoordinates()[1] - coordinates[1]), 2));
+        if (d < r) {
             root.printInfo();
             inRangeBanks(root.getRight(), coordinates, r);
         }
@@ -169,5 +165,27 @@ public class KD_Tree {
         if (d1 < d2)
             return n0;
         return n1;
+    }
+
+    public void rangeSearch(Node root , Neighborhood neighborhood, int d){
+        if (root == null)
+            return;
+        double[] rootC = root.getCoordinates();
+        int r = d % k;
+        if (rootC[0] > neighborhood.getMin_X() && rootC[0] < neighborhood.getMax_X() &&
+            rootC[1] > neighborhood.getMin_Y() && rootC[1] < neighborhood.getMax_Y())
+            root.printInfo();
+        if (r == 0){
+            if (rootC[r] > neighborhood.getMin_X())
+                rangeSearch(root.getLeft() , neighborhood , d + 1);
+            if (rootC[r] < neighborhood.getMax_X())
+                rangeSearch(root.getRight() , neighborhood , d + 1);
+        }
+        else if (r == 1){
+            if (rootC[r] > neighborhood.getMin_Y())
+                rangeSearch(root.getLeft() , neighborhood , d + 1);
+            if (rootC[r] < neighborhood.getMax_Y())
+                rangeSearch(root.getRight() , neighborhood , d + 1);
+        }
     }
 }
