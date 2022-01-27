@@ -81,17 +81,16 @@ public class FinalProject {
                         System.out.println("There is no bank here!!");
                     else if (node.isBank())
                         System.out.println("Can not delete a main bank!!");
-
                     else if (!node.isBank()) {
                         String bankName = node.getBankBranch().getBaName();
                         Bank bank = banks.search(bankName).getBank();
                         if (bank.getBranchCtr() == 1) {
                             bank.setBranchCtr(0);
                             bank.getBranches().setRoot(null);
-                        } else {
-                            bank.delBr(coordinate);
-                            kd_tree.deleteNode(coordinate);
                         }
+                        else
+                            bank.delBr(coordinate);
+                        kd_tree.deleteNode(coordinate);
                         System.out.println("branch deleted successfully!!");
                     }
                 }
