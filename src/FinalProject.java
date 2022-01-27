@@ -98,16 +98,23 @@ public class FinalProject {
                     System.out.println("enter neighborhood name: ");
                     String nName = scanner.nextLine();
                     Neighborhood neighborhood = neighborhoods.search(nName).getNeighborhood();
-                    kd_tree.rangeSearch(kd_tree.getRoot(), neighborhood , 0);
+                    if (neighborhood == null)
+                        System.out.println("There is no neighborhood with this name!!");
+                    else
+                        kd_tree.rangeSearch(kd_tree.getRoot(), neighborhood , 0);
                 }
                 case "listBrs" -> {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
                     Bank bank = banks.search(bankName).getBank();
-                    if (bank.getBranches().getRoot() == null)
-                        System.out.println("This bank has no branches!!");
-                    else
-                        bank.printBranchesInfo(bank.getBranches().getRoot());
+                    if (bank == null)
+                        System.out.println("There is no bank with this name!!");
+                    else {
+                        if (bank.getBranches().getRoot() == null)
+                            System.out.println("This bank has no branches!!");
+                        else
+                            bank.printBranchesInfo(bank.getBranches().getRoot());
+                    }
                 }
                 case "nearB" -> {
                     System.out.println("enter coordinates: ");
@@ -130,14 +137,18 @@ public class FinalProject {
                     System.out.println("enter bank name: ");
                     String bankName = scanner.nextLine();
                     Bank bank = banks.search(bankName).getBank();
-                    System.out.println("enter the coordinates: ");
-                    double[] coordinates = new double[2];
-                    coordinates[0] = scanner.nextDouble();
-                    coordinates[1] = scanner.nextDouble();
-                    Node node = bank.getBranches().nearestBank(bank.getBranches().getRoot() , coordinates , 0);
-                    System.out.println("nearest branch of '" + node.getBankBranch().getBaName() + "' bank to your location is '" +
-                                        node.getBankBranch().getBrName() + "' located in X = " + node.getBankBranch().getCoordinates()[0] +
-                                        " and Y = " + node.getBankBranch().getCoordinates()[1]);
+                    if (bank == null)
+                        System.out.println("There is no bank with this name!!");
+                    else {
+                        System.out.println("enter the coordinates: ");
+                        double[] coordinates = new double[2];
+                        coordinates[0] = scanner.nextDouble();
+                        coordinates[1] = scanner.nextDouble();
+                        Node node = bank.getBranches().nearestBank(bank.getBranches().getRoot(), coordinates, 0);
+                        System.out.println("nearest branch of '" + node.getBankBranch().getBaName() + "' bank to your location is '" +
+                                node.getBankBranch().getBrName() + "' located in X = " + node.getBankBranch().getCoordinates()[0] +
+                                " and Y = " + node.getBankBranch().getCoordinates()[1]);
+                    }
                 }
                 default -> System.out.println("wrong command!!Try again...");
             }
