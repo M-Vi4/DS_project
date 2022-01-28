@@ -1,4 +1,6 @@
 public class Node{
+    public static final String PRINT_BLUE = "\u001B[34m";
+
     private Bank bank;
     private BankBranch bankBranch;
     private Node right = null;
@@ -64,11 +66,11 @@ public class Node{
 
     public void printInfo(){
         if (isBank){
-            System.out.println("bank " + "'" + bank.getName() + "'" + " placed in X = " + getCoordinates()[0]
+            System.out.println(PRINT_BLUE + "bank " + "'" + bank.getName() + "'" + " placed in X = " + getCoordinates()[0]
                                 + " and Y = " + getCoordinates()[1]);
         }
         else {
-            System.out.println("'" + bankBranch.getBrName() + "' branch of'" +
+            System.out.println(PRINT_BLUE + "'" + bankBranch.getBrName() + "' branch of'" +
                                 bankBranch.getBaName() + "'bank placed in X = "
                                 + bankBranch.getCoordinates()[0] + " and Y = " +
                                 + bankBranch.getCoordinates()[1]);

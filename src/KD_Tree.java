@@ -1,4 +1,7 @@
 public class KD_Tree {
+    public static final String PRINT_BLUE = "\u001B[34m";
+    public static final String PRINT_RED = "\u001B[31m";
+
     private Node root = null;
     private final int k;
     boolean isSame = false;
@@ -20,7 +23,7 @@ public class KD_Tree {
             return node;
         }
         if (nodeComparison(node , root)) {
-            System.out.println("There is already a bank here!!");
+            System.out.println(PRINT_RED + "There is already a bank here!!");
             isSame = true;
             return root;
         }
@@ -115,15 +118,22 @@ public class KD_Tree {
         return search(root.getRight(), coo, d + 1);
     }
 
-    public void inRangeBanks(Node root, double[] coordinates, double r) {
+    public void inRangeBanks(Node root, double[] coordinates, double r , int de) {
         if (root == null)
             return;
         double d = Math.sqrt(Math.pow((root.getCoordinates()[0] - coordinates[0]), 2) + Math.pow((root.getCoordinates()[1] - coordinates[1]), 2));
-        if (d < r) {
+        if (Double.compare(d , r) == -1) {
             root.printInfo();
-            inRangeBanks(root.getRight(), coordinates, r);
+            inRangeBanks(root.getRight(), coordinates, r , de + 1);
+            inRangeBanks(root.getLeft() , coordinates , r , de + 1);
         }
-        inRangeBanks(root.getLeft(), coordinates, r);
+        else {
+            int re = de % k;
+            if (coordinates[re] < root.getCoordinates()[re])
+                inRangeBanks(root.getLeft() , coordinates , r , de + 1);
+            else
+                inRangeBanks(root.getRight() , coordinates , r , de + 1);
+        }
     }
 
     private double distance(double[] coo1, double[] coo2) {

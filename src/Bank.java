@@ -1,4 +1,6 @@
 public class Bank {
+    public static final String PRINT_BLUE = "\u001B[34m";
+
     private double[] coordinates;
     private final String name;
     private KD_Tree branches = new KD_Tree(2);
@@ -47,12 +49,12 @@ public class Bank {
     }
 
     public void printInfo(){
-        System.out.println("bank " + "'" + this.getName() + "'" + " placed in X = " + getCoordinates()[0]
+        System.out.println(PRINT_BLUE + "bank " + "'" + this.getName() + "'" + " placed in X = " + getCoordinates()[0]
                 + " and Y = " + getCoordinates()[1]);
     }
 
     public void printBranchesInfo(Node root){
-        System.out.println( "'" + root.getBankBranch().getBrName() + "' branch of'" +
+        System.out.println(PRINT_BLUE + "'" + root.getBankBranch().getBrName() + "' branch of'" +
                             root.getBankBranch().getBaName() + "'bank located in X = "
                             +root.getCoordinates()[0] + " and Y = " +
                             +root.getCoordinates()[1]);
